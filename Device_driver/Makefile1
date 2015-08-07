@@ -1,0 +1,34 @@
+#AR = $ar
+#CC = $gcc
+#
+#obj-m	:=		hello_module.o
+#
+#KDIR	:=		/root/Device_driver
+#
+#default:
+#	$(MAKE) -C $(KDIR) M=$(PWD) modules ARCH=make
+#
+#
+#clean:
+#	rm -rf *.ko
+#	rm -rf *.o
+#	rm -rf *.mod.*
+#	rm -rf modules.order
+#	rm -rf module.symvers
+
+
+obj-m	:=rako.o
+
+KDIR	:= /root/Device_driver
+PWD		:= $(shell pwd)
+ARCH 	= ARCH=arm
+CROSS_COMPILE	= CROSS_COMPILE=arm-linux-gnueabi-
+MAKEARCH = $(MAKE) $(ARCH) $(CROSS_COMPILE)
+
+default:
+	$(MAKEARCH) -C $(KDIR) SUBDIRS=$(PWD) modules
+
+clean:
+	$(MAKEARCH) -C $(KDIR) SUBDIRS=$(PWD) clean
+
+
